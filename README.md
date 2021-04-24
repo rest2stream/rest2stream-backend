@@ -13,6 +13,6 @@ python3 -m pip install fastapi uvicorn aiohttp jsonpatch
 
 ## How to run development server? (FastAPI Backend)
 ```
-cd /home/{username}/fastapi-rest2stream/fastapi
+cd /home/{username}/rest2stream-backend/
 uvicorn main:app --reload
 ```
