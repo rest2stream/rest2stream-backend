@@ -8,11 +8,12 @@ Backend of Rest API 2 Stream data (RATS) 🐀
 
 ## Installation (FastAPI Backend)
 ```
-python3 -m pip install fastapi uvicorn aiohttp jsonpatch
+pip install -r requirements
 ```
 
 ## How to run development server? (FastAPI Backend)
 ```
 cd /home/{username}/rest2stream-backend/
-uvicorn main:app --reload
+#uvicorn watchdog always detect changes in SQLlite decided to specify the dir 
+uvicorn main:app --reload --reload-dir routers
 ```
