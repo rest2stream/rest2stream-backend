@@ -15,3 +15,15 @@ class MyApis(models.Model):
 
 MyApiPydantic = pydantic_model_creator(MyApis, name="MyApi")
 MyApisInPydantic = pydantic_model_creator(MyApis, name="MyApiIn", exclude_readonly=True)
+
+
+class User(models.Model):
+    id = fields.IntField(pk=True)
+    username = fields.CharField(max_length=50, unique=True)
+    password_hash = fields.CharField(max_length=200)
+    full_name = fields.CharField(max_length=50, null=True)
+    email = fields.CharField(max_length=50, null=True)
+
+
+UserPydantic = pydantic_model_creator(User, name="User")
+UsersInPydantic = pydantic_model_creator(User, name="UserIn", exclude_readonly=True)

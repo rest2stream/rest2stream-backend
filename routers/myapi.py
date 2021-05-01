@@ -21,19 +21,19 @@ async def create_myapi(myapi: MyApisInPydantic):
     return await MyApiPydantic.from_tortoise_orm(myapi_obj)
 
 @router.get(
-    "/myapi/{myapi_id}", response_model=MyApiPydantic, responses={404: {"model": HTTPNotFoundError}}
+    "/{myapi_id}", response_model=MyApiPydantic, responses={404: {"model": HTTPNotFoundError}}
 )
 async def get_myapi(myapi_id: int):
     return await MyApiPydantic.from_queryset_single(MyApis.get(id=myapi_id))
 
 @router.put(
-    "/myapi/{myapi_id}", response_model=MyApiPydantic, responses={404: {"model": HTTPNotFoundError}}
+    "/{myapi_id}", response_model=MyApiPydantic, responses={404: {"model": HTTPNotFoundError}}
 )
 async def update_myapi(myapi_id: int, myapi: MyApisInPydantic):
     await MyApis.filter(id=myapi_id).update(**myapi.dict(exclude_unset=True))
     return await MyApiPydantic.from_queryset_single(MyApis.get(id=myapi_id))
 
-@router.delete("/myapi/{myapi_id}", response_model=Status, responses={404: {"model": HTTPNotFoundError}})
+@router.delete("/{myapi_id}", response_model=Status, responses={404: {"model": HTTPNotFoundError}})
 async def delete_myapi(myapi_id: int):
     deleted_count = await MyApis.filter(id=myapi_id).delete()
     if not deleted_count:

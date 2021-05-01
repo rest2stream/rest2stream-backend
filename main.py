@@ -19,9 +19,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(myapi.router)
-app.include_router(stream.router)
-app.include_router(accounts.router)
+app.include_router(
+    myapi.router,
+    prefix="/myapi"
+)
+app.include_router(
+    stream.router,
+    prefix="/stream"
+)
+app.include_router(
+    accounts.router,
+    prefix="/accounts"
+)
 
 register_tortoise(
     app,
