@@ -6,7 +6,7 @@ from pydantic import BaseModel, HttpUrl
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from passlib.hash import bcrypt
-from models import UserInPydantic, UserPydantic, Users
+from models import UserInPydantic, UserOutPydantic, UserPydantic, Users
 
 router = APIRouter()
 
@@ -76,6 +76,10 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    session_expired_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Signature has expired!"
+    )
     token_data = None
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -83,6 +87,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         if username is None:
             raise credentials_exception
         token_data = TokenData(username=username)
+    except jwt.ExpiredSignatureError:
+        raise session_expired_exception
     except JWTError:
         raise credentials_exception
     if not token_data:
@@ -110,9 +116,9 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
 
-@router.post("/users", response_model=UserPydantic) #TODO: it should hide the password?
+@router.post("/create_user", response_model=UserOutPydantic) 
 async def create_user(user: UserInPydantic):
     user_obj = await Users.create(username=user.username, 
                 password=get_password_hash(user.password)
             )
-    return await UserPydantic.from_tortoise_orm(user_obj)
+    return await UserOutPydantic.from_tortoise_orm(user_obj)

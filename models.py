@@ -24,12 +24,13 @@ class Users(models.Model):
     full_name = fields.CharField(max_length=50, null=True)
     email = fields.CharField(max_length=50, null=True)
     is_active = fields.BooleanField(default=True)
-    created_at = fields.DatetimeField(auto_now_add=True)
-    modified_at = fields.DatetimeField(auto_now=True)
+    created_at = fields.DatetimeField(auto_now_add=True, null=True)
+    modified_at = fields.DatetimeField(auto_now=True, null=True)
 
     #class PydanticMeta:
     #    exclude = ["password"]
 
 
-UserPydantic = pydantic_model_creator(Users, name="User", exclude=("email", "hashed_password"))
+UserPydantic = pydantic_model_creator(Users, name="User")
+UserOutPydantic = pydantic_model_creator(Users, name="UserOutPydantic", exclude=("password",))
 UserInPydantic = pydantic_model_creator(Users, name="UserIn", exclude_readonly=True)
