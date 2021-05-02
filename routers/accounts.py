@@ -97,7 +97,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 @router.post("/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    users_db = await UserPydantic.from_queryset_single(Users.get(username=form_data.username))
+    users_db = await Users.get(username=form_data.username)
     user = authenticate_user(users_db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
