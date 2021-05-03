@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 from tortoise.contrib.fastapi import register_tortoise
 
-from routers import myapi, stream, accounts
+from routers import myapi, stream, accounts, github
 
 app = FastAPI()
 
@@ -19,6 +20,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=""
+)
+
 app.include_router(
     myapi.router,
     prefix="/myapi"
@@ -30,6 +36,11 @@ app.include_router(
 app.include_router(
     accounts.router,
     prefix="/accounts"
+)
+
+app.include_router(
+    github.router,
+    prefix="/github"
 )
 
 register_tortoise(
