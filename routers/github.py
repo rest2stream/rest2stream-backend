@@ -6,7 +6,7 @@ from authlib.integrations.starlette_client import OAuth
 from starlette.config import Config
 from fastapi import APIRouter, Depends, HTTPException, status
 
-config = Config('example.env')  # read config from .env file
+config = Config('.env')  # read config from .env file, may not work, pass the client_id, client_secret directly in register
 oauth = OAuth(config)
 oauth.register(
     name='github',
@@ -24,7 +24,7 @@ router = APIRouter()
 async def login(request: Request):
     # absolute url for callback
     # we will define it below
-    redirect_uri = 'http://localhost:8000/github/authorize'
+    redirect_uri = request.url_for('authorize')
     return await oauth.github.authorize_redirect(request, redirect_uri)
 
 @router.get('/authorize')
