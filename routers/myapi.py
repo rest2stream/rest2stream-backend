@@ -11,11 +11,11 @@ class Status(BaseModel):
     message: str
 
 
-@router.get("/list-myapi", response_model=List[MyApiPydantic])
+@router.get("/list", response_model=List[MyApiPydantic])
 async def list_myapi():
     return await MyApiPydantic.from_queryset(MyApis.all())
 
-@router.post("/create-myapi", response_model=MyApiPydantic)
+@router.post("/create", response_model=MyApiPydantic)
 async def create_myapi(myapi: MyApisInPydantic):
     myapi_obj = await MyApis.create(**myapi.dict(exclude_unset=True))
     return await MyApiPydantic.from_tortoise_orm(myapi_obj)
