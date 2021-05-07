@@ -1,15 +1,15 @@
-
+import os
 from starlette.requests import Request
 from starlette.responses import HTMLResponse, RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
 from authlib.integrations.starlette_client import OAuth
-from starlette.config import Config
 from fastapi import APIRouter, Depends, HTTPException, status
 
-config = Config('.env')  # read config from .env file, may not work, pass the client_id, client_secret directly in register
-oauth = OAuth(config)
+oauth = OAuth()
 oauth.register(
     name='github',
+    client_id=os.getenv('GITHUB_CLIENT_ID'),
+    client_secret=os.getenv('GITHUB_CLIENT_SECRET'),
     access_token_params=None,
     authorize_params=None,
     authorize_url = 'https://github.com/login/oauth/authorize',
