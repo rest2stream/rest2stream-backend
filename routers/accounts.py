@@ -51,7 +51,7 @@ def get_password_hash(password):
 
 def get_user(db, username: str):
     db = dict(db)
-    if username in db.get('username'): # real db?
+    if username in db.get('username') and db.get('is_active'): # real db?
         return UserInDB(**db)
     else:
         raise HTTPException(status_code=400, detail="Inactive user")
