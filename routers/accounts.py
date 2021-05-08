@@ -51,7 +51,7 @@ def get_password_hash(password):
 
 def get_user(db, username: str):
     db = dict(db)
-    if username in db.get('username') and db.get('is_active'): # real db?
+    if username in db.get('username'): # real db?
         return UserInDB(**db)
     else:
         raise HTTPException(status_code=400, detail="Inactive user")
@@ -60,7 +60,9 @@ def authenticate_user(db, username: str, password: str):
     user = get_user(db, username)
     if not user:
         return False
-    if not verify_password(password, user.password):
+    elif not user.is_active:
+        return False
+    elif not verify_password(password, user.password):
         return False
     return user
 
