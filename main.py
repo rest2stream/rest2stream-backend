@@ -3,8 +3,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from tortoise.contrib.fastapi import register_tortoise
-
 from routers import myapi, stream, accounts, github
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 

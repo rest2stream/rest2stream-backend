@@ -5,6 +5,10 @@ from starlette.middleware.sessions import SessionMiddleware
 from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, HTTPException, status
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 oauth = OAuth()
 oauth.register(
     name='github',

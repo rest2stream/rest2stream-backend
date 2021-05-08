@@ -8,6 +8,9 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from passlib.hash import bcrypt
 from models import UserInPydantic, UserOutPydantic, UserPydantic, Users
+from dotenv import load_dotenv
+
+load_dotenv()
 
 router = APIRouter()
 
