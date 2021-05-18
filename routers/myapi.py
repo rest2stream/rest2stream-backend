@@ -13,8 +13,8 @@ class Status(BaseModel):
 
 
 @router.get("/list", response_model=List[MyApiPydantic])
-async def list_myapi():
-    return await MyApiPydantic.from_queryset(MyApis.all())
+async def list_myapi(token: str = Depends(get_current_user)):
+    return await MyApiPydantic.from_queryset(MyApis.filter(created_by_id=token.id))
 
 @router.post("/create", response_model=MyApiPydantic)
 async def create_myapi(myapi: MyApisInPydantic, _ = Depends(get_current_user)):
