@@ -125,7 +125,7 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
 @router.post("/create_user", response_model=UserOutPydantic) 
-async def create_user(user: UserInPydantic, _ = Depends(oauth2_scheme)):
+async def create_user(user: UserInDB, _ = Depends(oauth2_scheme)):
     user_obj = await Users.create(username=user.username, 
                 password=get_password_hash(user.password)
             )
