@@ -44,6 +44,5 @@ async def event_generator(stream_url):
 
 @router.get("/{url:path}")
 async def stream(url):
-    stream_url = 'http://localhost:8000/myapi/1' #temporary
-    eg = event_generator(stream_url)
+    eg = event_generator(url)
     return EventSourceResponse(eg)
