@@ -45,4 +45,6 @@ async def event_generator(stream_url):
 @router.get("/{url:path}")
 async def stream(url):
     eg = event_generator(url)
-    return EventSourceResponse(eg)
+    event_source = EventSourceResponse(eg)
+    event_source.ping_interval = 600 #ping every 10 mins
+    return event_source
