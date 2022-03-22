@@ -1,5 +1,7 @@
 aiohttp==3.7.4.post0
 aiosqlite==0.16.1
+anyio==3.5.0
+asgiref==3.5.0
 async-timeout==3.0.1
 attrs==20.3.0
 Authlib==0.15.3
@@ -14,7 +16,7 @@ cryptography==3.4.7
 curtsies==0.3.5
 cwcwidth==0.1.4
 ecdsa==0.14.1
-fastapi==0.63.0
+fastapi==0.75.0
 greenlet==1.0.0
 h11==0.10.0
 httpcore==0.13.2
@@ -30,7 +32,7 @@ multidict==5.1.0
 passlib==1.7.4
 pyasn1==0.4.8
 pycparser==2.20
-pydantic==1.8.1
+pydantic==1.9.0
 Pygments==2.8.1
 PyPika==0.48.1
 pypika-tortoise==0.1.0
@@ -46,11 +48,11 @@ rsa==4.7.2
 six==1.15.0
 sniffio==1.2.0
 sse-starlette==0.6.2
-starlette==0.13.6
+starlette==0.17.1
 tortoise-orm==0.17.2
 typing-extensions==3.7.4.3
 urllib3==1.26.4
-uvicorn==0.13.4
+uvicorn==0.17.6
 uvloop==0.15.2
 watchgod==0.6
 websockets==8.1
